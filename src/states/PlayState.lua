@@ -66,6 +66,9 @@ function PlayState:enter(params)
 
     -- score we have to reach to get to the next level
     self.scoreGoal = self.level * 1.25 * 1000
+
+    -- check for possible matches
+    --self.board:checkStaleBoard()
 end
 
 function PlayState:update(dt)
@@ -177,6 +180,7 @@ function PlayState:swapTiles(x, y, firstSwap)
     :finish(function()
         if self.board:calculateMatches() then
             self:calculateMatches()
+            self.board:checkStaleBoard()
         elseif firstSwap then
             self:swapTiles(tempX, tempY, false)
             gSounds['error']:play()

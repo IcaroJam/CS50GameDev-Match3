@@ -33,7 +33,7 @@ function Board:initializeTiles()
         for tileX = 1, 8 do
             
             -- create a new tile at X,Y with a random color and variety
-            table.insert(self.tiles[tileY], Tile(tileX, tileY, math.random(18), math.random(self.level)))
+            table.insert(self.tiles[tileY], Tile(tileX, tileY, math.random(8), math.random(self.level)))
         end
     end
 
@@ -309,4 +309,31 @@ function Board:render()
             self.tiles[y][x]:render(self.x, self.y)
         end
     end
+end
+
+--[[
+    Check if there are any possible matches, refresh the board if there aren't.
+]]
+function Board:checkStaleBoard()
+    local swap = function(x1, y1, x2, y2)
+        local tmpTile = self.tiles[y1][x1]
+        local tmpX = tmpTile.gridX
+        local tmpY = tmpTile.gridY
+
+        tmpTile.gridX = self.tiles[y2][x2].gridX
+        tmpTile.gridY = self.tiles[y2][x2].gridY
+        self.tiles[y2][x2].gridX = tmpX
+        self.tiles[y2][x2].gridY = tmpY
+
+        self.tiles[y1][x1] = self.tiles[y2][x2]
+        self.tiles[y2][x2] = tmpTile
+    end
+
+    for y = 1, 7 do
+        for x = 1, 7 do
+        end
+    end
+
+    self:initializeTiles()
+    self:checkStaleBoard()
 end
