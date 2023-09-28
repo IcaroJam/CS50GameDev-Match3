@@ -180,7 +180,6 @@ function PlayState:swapTiles(x, y, firstSwap)
     :finish(function()
         if self.board:calculateMatches() then
             self:calculateMatches()
-            self.board:checkStaleBoard()
         elseif firstSwap then
             self:swapTiles(tempX, tempY, false)
             gSounds['error']:play()
@@ -224,6 +223,7 @@ function PlayState:calculateMatches()
             -- recursively call function in case new matches have been created
             -- as a result of falling blocks once new blocks have finished falling
             self:calculateMatches()
+            self.board:checkStaleBoard()
         end)
 
     -- if no matches, we can continue playing

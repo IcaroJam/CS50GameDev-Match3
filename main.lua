@@ -64,7 +64,7 @@ function love.load()
     gSounds['music']:setLooping(true)
     gSounds['music']:play()
 
-    gSounds['music']:setVolume(0.1)
+    gSounds['music']:setVolume(0.8)
 
     -- initialize state machine with all state-returning functions
     gStateMachine = StateMachine {
