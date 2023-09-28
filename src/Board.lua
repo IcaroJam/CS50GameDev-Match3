@@ -63,6 +63,8 @@ function Board:calculateMatches()
     for y = 1, 8 do
         local colorToMatch = self.tiles[y][1].color
 
+        local tmpx
+
         matchNum = 1
         shinyHit = false
         
@@ -87,11 +89,13 @@ function Board:calculateMatches()
 
                     if shinyHit then
                         matchNum = 8
-                        x = 9
+                        tmpx = 9
+                    else
+                        tmpx = x
                     end
 
                     -- go backwards from here by matchNum
-                    for x2 = x - 1, x - matchNum, -1 do
+                    for x2 = tmpx - 1, x - matchNum, -1 do
                         
                         -- add each tile to the match that's in that match
                         table.insert(match, self.tiles[y][x2])
@@ -131,7 +135,10 @@ function Board:calculateMatches()
     for x = 1, 8 do
         local colorToMatch = self.tiles[1][x].color
 
+        local tmpy
+
         matchNum = 1
+        shinyHit = false
 
         -- every vertical tile
         for y = 2, 8 do
@@ -143,7 +150,14 @@ function Board:calculateMatches()
                 if matchNum >= 3 then
                     local match = {}
 
-                    for y2 = y - 1, y - matchNum, -1 do
+                    if shinyHit then
+                        matchNum = 8
+                        tmpy = 9
+                    else
+                        tmpy = y
+                    end
+
+                    for y2 = tmpy - 1, y - matchNum, -1 do
                         table.insert(match, self.tiles[y2][x])
                     end
 
@@ -162,7 +176,11 @@ function Board:calculateMatches()
         -- account for the last column ending with a match
         if matchNum >= 3 then
             local match = {}
-            
+
+            if shinyHit then
+                matchNum = 8
+            end
+
             -- go backwards from end of last row by matchNum
             for y = 8, 8 - matchNum + 1, -1 do
                 table.insert(match, self.tiles[y][x])
