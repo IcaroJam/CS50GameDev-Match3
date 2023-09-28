@@ -90,6 +90,8 @@ function Board:calculateMatches()
                     if shinyHit then
                         matchNum = 8
                         tmpx = 9
+                        gSounds['shinyexplosion']:play()
+                        shinyHit = false
                     else
                         tmpx = x
                     end
@@ -121,6 +123,8 @@ function Board:calculateMatches()
 
             if shinyHit then
                 matchNum = 8
+                gSounds['shinyexplosion']:play()
+                shinyHit = false
             end
 
             -- go backwards from end of last row by matchNum
@@ -158,6 +162,8 @@ function Board:calculateMatches()
                     if shinyHit then
                         matchNum = 8
                         tmpy = 9
+                        gSounds['shinyexplosion']:play()
+                        shinyHit = false
                     else
                         tmpy = y
                     end
@@ -185,6 +191,8 @@ function Board:calculateMatches()
 
             if shinyHit then
                 matchNum = 8
+                gSounds['shinyexplosion']:play()
+                shinyHit = false
             end
 
             -- go backwards from end of last row by matchNum
@@ -282,7 +290,7 @@ function Board:getFallingTiles()
             if not tile then
 
                 -- new tile with random color and variety
-                local tile = Tile(x, y, math.random(18), math.random(self.level))
+                local tile = Tile(x, y, math.random(8), math.random(self.level))
                 tile.y = -32
                 self.tiles[y][x] = tile
 

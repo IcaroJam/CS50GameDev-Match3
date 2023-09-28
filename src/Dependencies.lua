@@ -45,6 +45,7 @@ gSounds = {
     ['select'] = love.audio.newSource('sounds/select.wav', 'static'),
     ['error'] = love.audio.newSource('sounds/error.wav', 'static'),
     ['match'] = love.audio.newSource('sounds/match.wav', 'static'),
+    ['shinyexplosion'] = love.audio.newSource('sounds/shinyexplosion.wav', 'static'),
     ['clock'] = love.audio.newSource('sounds/clock.wav', 'static'),
     ['game-over'] = love.audio.newSource('sounds/game-over.wav', 'static'),
     ['next-level'] = love.audio.newSource('sounds/next-level.wav', 'static')
