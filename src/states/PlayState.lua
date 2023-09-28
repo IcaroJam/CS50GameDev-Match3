@@ -59,7 +59,7 @@ function PlayState:enter(params)
     self.level = params.level
 
     -- spawn a board and place it toward the right
-    self.board = params.board or Board(VIRTUAL_WIDTH - 272, 16)
+    self.board = params.board or Board(VIRTUAL_WIDTH - 272, 16, self.level)
 
     -- grab score from params if it was passed
     self.score = params.score or 0
@@ -193,7 +193,7 @@ function PlayState:calculateMatches()
 
         -- add score and time for each match
         for k, match in pairs(matches) do
-            self.score = self.score + #match * 50
+            self.score = self.score + getMatchPoints(match)
             self.timer = self.timer + #match
         end
 
@@ -216,6 +216,19 @@ function PlayState:calculateMatches()
     else
         self.canInput = true
     end
+end
+
+--[[
+    Return the total point worth of a given match.
+]]
+function getMatchPoints(match)
+    local sum = 0
+
+    for i = 1, #match do
+        sum = sum + 50 * match[i].variety
+    end
+
+    return sum
 end
 
 function PlayState:render()
