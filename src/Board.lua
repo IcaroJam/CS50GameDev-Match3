@@ -331,9 +331,18 @@ function Board:checkStaleBoard()
 
     for y = 1, 7 do
         for x = 1, 7 do
+            -- swap current tile with the one to its right
+            -- check if this led to a match
+            -- if it did return
+            -- swap back 
+            -- swap current tile with the one under it
+            -- check if this led to a match
+            -- if it did return
+            -- swap back 
         end
     end
 
+    -- if no possible matches were found, reinitialize the tiles and check again
     self:initializeTiles()
     self:checkStaleBoard()
 end
