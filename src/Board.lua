@@ -106,6 +106,7 @@ function Board:calculateMatches()
                 end
 
                 matchNum = 1
+                shinyHit = false
 
                 -- don't need to check last two if they won't be in a match
                 if x >= 7 then
@@ -169,6 +170,7 @@ function Board:calculateMatches()
                 end
 
                 matchNum = 1
+                shinyHit = false
 
                 -- don't need to check last two if they won't be in a match
                 if y >= 7 then
