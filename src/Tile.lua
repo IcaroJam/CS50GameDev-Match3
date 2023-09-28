@@ -23,9 +23,28 @@ function Tile:init(x, y, color, variety)
     self.x = (self.gridX - 1) * 32
     self.y = (self.gridY - 1) * 32
 
+    -- is this a shiny tile?
+    self.shiny = math.random(20) == 1
+
     -- tile appearance/points
     self.color = color
     self.variety = variety
+    if self.shiny then
+      self.psys = love.graphics.newParticleSystem(gTextures['glow'], 7)
+
+      self.psys:setParticleLifetime(0.7, 1.2)
+
+      self.psys:setLinearAcceleration(0, 1, 0, 5)
+
+      self.psys:setEmissionArea('normal', 14, 14)
+    end
+end
+
+function Tile:update(dt)
+    if self.shiny then
+      self.psys:emit(7)
+      self.psys:update(dt)
+    end
 end
 
 function Tile:render(x, y)
@@ -39,4 +58,9 @@ function Tile:render(x, y)
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(gTextures['main'], gFrames['tiles'][self.color][self.variety],
         self.x + x, self.y + y)
+
+    -- draw particles if shiny
+    if self.shiny then
+      love.graphics.draw(self.psys, self.x + 10 + x, self.y + 10 + y)
+    end
 end
