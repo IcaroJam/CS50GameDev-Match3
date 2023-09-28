@@ -56,14 +56,22 @@ function Board:calculateMatches()
     -- how many of the same color blocks in a row we've found
     local matchNum = 1
 
+    -- flag to check if a shiny tile was matched
+    local shinyHit = false
+
     -- horizontal matches first
     for y = 1, 8 do
         local colorToMatch = self.tiles[y][1].color
 
         matchNum = 1
+        shinyHit = false
         
         -- every horizontal tile
         for x = 2, 8 do
+            -- is the current tile shiny?
+            if self.tiles[y][x].shiny then
+                shinyHit = true
+            end
             
             -- if this is the same color as the one we're trying to match...
             if self.tiles[y][x].color == colorToMatch then
@@ -76,6 +84,11 @@ function Board:calculateMatches()
                 -- if we have a match of 3 or more up to now, add it to our matches table
                 if matchNum >= 3 then
                     local match = {}
+
+                    if shinyHit then
+                        matchNum = 8
+                        x = 9
+                    end
 
                     -- go backwards from here by matchNum
                     for x2 = x - 1, x - matchNum, -1 do
@@ -100,7 +113,11 @@ function Board:calculateMatches()
         -- account for the last row ending with a match
         if matchNum >= 3 then
             local match = {}
-            
+
+            if shinyHit then
+                matchNum = 8
+            end
+
             -- go backwards from end of last row by matchNum
             for x = 8, 8 - matchNum + 1, -1 do
                 table.insert(match, self.tiles[y][x])
