@@ -26,10 +26,6 @@ function Tile:init(x, y, color, variety)
     -- is this a shiny tile?
     self.shiny = math.random(20) == 1
 
-    if x == 1 and y == 1 then
-        self.shiny = true
-    end
-
     -- tile appearance/points
     self.color = color
     self.variety = variety
