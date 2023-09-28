@@ -95,7 +95,7 @@ function Board:calculateMatches()
                     end
 
                     -- go backwards from here by matchNum
-                    for x2 = tmpx - 1, x - matchNum, -1 do
+                    for x2 = tmpx - 1, tmpx - matchNum, -1 do
                         
                         -- add each tile to the match that's in that match
                         table.insert(match, self.tiles[y][x2])
@@ -142,6 +142,10 @@ function Board:calculateMatches()
 
         -- every vertical tile
         for y = 2, 8 do
+            -- is the current tile shiny?
+            if self.tiles[y][x].shiny then
+                shinyHit = true
+            end
             if self.tiles[y][x].color == colorToMatch then
                 matchNum = matchNum + 1
             else
@@ -157,7 +161,7 @@ function Board:calculateMatches()
                         tmpy = y
                     end
 
-                    for y2 = tmpy - 1, y - matchNum, -1 do
+                    for y2 = tmpy - 1, tmpy - matchNum, -1 do
                         table.insert(match, self.tiles[y2][x])
                     end
 
