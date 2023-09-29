@@ -339,30 +339,38 @@ function Board:checkStaleBoard()
         self.tiles[y2][x2] = tmpTile
     end
 
-    for y = 1, 7, 1 do
-        for x = 1, 7, 1 do
-            -- swap current tile with the one to its right
-            swap(x, y, x + 1, y)
-            -- check if this led to a match
-            if self:calculateMatches() then
-                swap(x, y, x + 1, y)
-                -- if it did return
-                print("Matches found", x, y)
-                return
-            end
-            -- swap back
-            swap(x, y, x + 1, y)
-            -- swap current tile with the one under it
-            swap(x, y, x, y + 1)
-            -- check if this led to a match
-            if self:calculateMatches() then
-                swap(x, y, x, y + 1)
-                -- if it did return
-                print("Matches found", x, y)
-                return
-            end
-            -- swap back
-            swap(x, y, x, y + 1)
+    for y = 1, 8, 1 do
+        for x = 1, 8, 1 do
+			-- watch out for rightmost column corner case!
+			if x < 8 then
+				-- swap current tile with the one to its right
+				swap(x, y, x + 1, y)
+				-- check if this led to a match
+				if self:calculateMatches() then
+					-- swap back
+					swap(x, y, x + 1, y)
+					-- if it did return
+					print("Matches found", x, y)
+					return
+				end
+				-- swap back
+				swap(x, y, x + 1, y)
+			end
+			-- watch out for bottom row corner case!
+			if y < 8 then
+				-- swap current tile with the one under it
+				swap(x, y, x, y + 1)
+				-- check if this led to a match
+				if self:calculateMatches() then
+					-- swap back
+					swap(x, y, x, y + 1)
+					-- if it did return
+					print("Matches found", x, y)
+					return
+				end
+				-- swap back
+				swap(x, y, x, y + 1)
+			end
         end
     end
 
