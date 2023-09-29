@@ -14,7 +14,6 @@
 Tile = Class{}
 
 function Tile:init(x, y, color, variety)
-    
     -- board positions
     self.gridX = x
     self.gridY = y
@@ -28,7 +27,8 @@ function Tile:init(x, y, color, variety)
 
     -- tile appearance/points
     self.color = color
-    self.variety = variety
+	-- prevent overflow when looking for quads on levels 7+
+    self.variety = math.min(variety, 6)
     if self.shiny then
       self.psys = love.graphics.newParticleSystem(gTextures['glow'], 5)
 
